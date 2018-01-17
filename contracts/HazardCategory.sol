@@ -9,8 +9,8 @@ contract HazardCategory {
      */
     address public creator;
     uint[256] public categories;
-    mapping (uint => uint[256]) subCategories;
-    
+    mapping (uint8 => uint[256]) public subCategories;
+
     /*
      *  Modifiers
      */
@@ -29,20 +29,42 @@ contract HazardCategory {
     }
 
     /// @dev Sets Category at the specified position
-    /// @param position The specified position
+    /// @param categoryId The specified position
     /// @param code Category Code
     /// @return position If success,returns the position that been set,else returns -1
-    function setCategory(uint8 position,uint code) public returns (uint8){
-        require(position >= 0 && position <= 255);
+    function setCategory(uint8 categoryId,uint code) public returns (uint8){
+        require(categoryId >= 0 && categoryId <= 255);
 
-        categories[position] = code;
+        categories[categoryId] = code;
 
-        return position;
+        return categoryId;
     }
 
     /// @dev Get all categories at one time
-    /// @param categories All categories available in GRE
+    /// @return categories All categories available in GRE
     function getCategories() public view returns (uint[256]) {
         return categories;
+    }
+
+    function setSubCategory(uint8 categoryId, uint8 subCategoryId, uint code) public returns (uint8 cid, uint8 scid) {
+        require(categoryId >= 0 && categoryId <= 255);
+        require(subCategoryId >= 0 && subCategoryId <= 255);
+
+        subCategories[categoryId][subCategoryId] = code;
+
+        cid = categoryId;
+        scid = subCategoryId;
+    }
+
+    function setSubCategory(uint8 categoryId, uint[256] codeList) public returns (uint) {
+        require(categoryId >= 0 && categoryId <= 255);
+        
+        subCategories[categoryId] = codeList;
+
+        return 1; 
+    }
+
+    function getSubCategories(uint8 categoryId) public view returns (uint[256]) {
+        return subCategories[categoryId];
     }
 }
