@@ -1,6 +1,6 @@
 pragma solidity ^0.4.17;
 
-/// @title HazardCategory contract - Provide All Hazard Category available in GRE
+/// @title HazardCategory contract - Provide Hazard IdentificationInfo available in GRE
 /// @author William - <william@gre-foundation.org>
 contract HazardIdentification {
 
