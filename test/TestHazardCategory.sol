@@ -9,11 +9,11 @@ contract TestHazardCategory {
 
     // Testing the setCategory() function
     function testCreatorCanSetCategory() public {
-        uint categoryId = hazardCategory.setCategory(1,10000);
+        bool result = hazardCategory.setCategory(1,10000);
 
-        uint excepted = 1;
+        bool excepted = true;
 
-        Assert.equal(categoryId,excepted, "Set category should be recorded.");
+        Assert.equal(result,excepted, "Set category should be recorded.");
     }
 
     // Testing retrieval of a single category
@@ -36,21 +36,20 @@ contract TestHazardCategory {
     }
 
     function testSetSubCategory() public {
-        var (categoryId,subCategoryId) = hazardCategory.setSubCategory(1,0,10001);
+        bool result = hazardCategory.setSubCategory(1,0,10001);
 
-        uint exceptedCId = 1;
-        uint exceptedSCId = 0;
-        Assert.equal(categoryId,exceptedCId, "Set sub category should be recorded.");
-        Assert.equal(subCategoryId,exceptedSCId, "Set sub category should be recorded.");
+        bool excepted = true;
+
+        Assert.equal(result,excepted, "Set sub category should be recorded.");
     }
 
     function testSetSubCategoryWithArray() public {
         uint[256] memory subCategories;
         uint code = 10001;
         subCategories[0] = code;
-        uint result = hazardCategory.setSubCategory(1,subCategories);
+        bool result = hazardCategory.setSubCategory(1,subCategories);
 
-        uint excepted = 1;
+        bool excepted = true;
         Assert.equal(result,excepted, "Set sub category should be recorded.");
     }
 

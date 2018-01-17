@@ -29,15 +29,15 @@ contract HazardCategory {
     }
 
     /// @dev Sets Category at the specified position
-    /// @param categoryId The specified position
-    /// @param code Category Code
-    /// @return position If success,returns the position that been set,else returns -1
-    function setCategory(uint8 categoryId,uint code) public returns (uint8){
-        require(categoryId >= 0 && categoryId <= 255);
+    /// @param position The specified position
+    /// @param code Category code
+    /// @return result If success,returns true,else returns false
+    function setCategory(uint8 position,uint code) public returns (bool){
+        require(position >= 0 && position <= 255);
 
-        categories[categoryId] = code;
+        categories[position] = code;
 
-        return categoryId;
+        return true;
     }
 
     /// @dev Get all categories at one time
@@ -46,24 +46,34 @@ contract HazardCategory {
         return categories;
     }
 
-    function setSubCategory(uint8 categoryId, uint8 subCategoryId, uint code) public returns (uint8 cid, uint8 scid) {
-        require(categoryId >= 0 && categoryId <= 255);
-        require(subCategoryId >= 0 && subCategoryId <= 255);
+    /// @dev Sets one SubCategory at the specified position
+    /// @param categoryPosition The specified category position
+    /// @param subCategoryPosition The specified sub category position
+    /// @param code Sub category code
+    /// @return result If success,returns true,else returns false
+    function setSubCategory(uint8 categoryPosition, uint8 subCategoryPosition, uint code) public returns (bool) {
+        require(categoryPosition >= 0 && categoryPosition <= 255);
+        require(subCategoryPosition >= 0 && subCategoryPosition <= 255);
 
-        subCategories[categoryId][subCategoryId] = code;
-
-        cid = categoryId;
-        scid = subCategoryId;
+        subCategories[categoryPosition][subCategoryPosition] = code;
+        
+        return true;
     }
 
-    function setSubCategory(uint8 categoryId, uint[256] codeList) public returns (uint) {
+    /// @dev Sets the whole SubCategory at the specified position
+    /// @param categoryId The specified category ID
+    /// @param codeList Sub category code whole list
+    /// @return result If success,returns true,else returns false
+    function setSubCategory(uint8 categoryId, uint[256] codeList) public returns (bool result) {
         require(categoryId >= 0 && categoryId <= 255);
         
         subCategories[categoryId] = codeList;
 
-        return 1; 
+        return true; 
     }
 
+    /// @dev Get sub category list of the specified category
+    /// @return sub categories All sub categories of the  available in GRE
     function getSubCategories(uint8 categoryId) public view returns (uint[256]) {
         return subCategories[categoryId];
     }
