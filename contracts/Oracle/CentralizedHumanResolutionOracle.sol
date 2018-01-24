@@ -8,14 +8,14 @@ contract CentralizedHumanResolutionOracle is Oracle {
     /*
      *  Events
      */
-    event ResultSetComplete(int result);
+    event ResultSetComplete(int res);
 
     /*
      *  Storage
      */
     address public owner;
     bool public isResultSet;
-    int public result;
+    int private result;
 
     /*
      *  Modifiers
@@ -47,7 +47,7 @@ contract CentralizedHumanResolutionOracle is Oracle {
 
     /// @dev Sets result
     /// @param _result The Result
-    function setResult(int _result) public isOwner resultNotSet returns (bool) {
+    function resolve(int _result) public isOwner resultNotSet returns (bool) {
         isResultSet = true;
         result = _result;
         ResultSetComplete(result);
